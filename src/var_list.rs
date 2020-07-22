@@ -10,6 +10,10 @@ trait Set<T> {
     fn set(&mut self, index: usize, value: T);
 }
 
+trait Init<T> {
+    fn init(t: T) -> VarList;
+}
+
 #[derive(Debug, Clone)]
 pub struct VarList {
     data_stack_: Vec<ValueData>,
@@ -154,6 +158,16 @@ impl VarList {
     }
 }
 
+impl Init<Vec<bool>> for VarList {
+    fn init(vec: Vec<bool>) -> VarList {
+        let mut var_list = VarList::new();
+        for value in vec.into_iter() {
+            var_list = var_list + value;
+        }
+        var_list
+    }
+}
+
 impl Add<bool> for VarList {
     type Output = VarList;
 
@@ -184,6 +198,16 @@ impl Set<bool> for VarList {
         }
         self.data_stack_[index].type_ = ValueType::ValueTypeBool;
         self.data_stack_[index].data_ = AnyData::VBool(value);
+    }
+}
+
+impl Init<Vec<u8>> for VarList {
+    fn init(vec: Vec<u8>) -> VarList {
+        let mut var_list = VarList::new();
+        for value in vec.into_iter() {
+            var_list = var_list + value;
+        }
+        var_list
     }
 }
 
@@ -220,6 +244,16 @@ impl Set<u8> for VarList {
     }
 }
 
+impl Init<Vec<u16>> for VarList {
+    fn init(vec: Vec<u16>) -> VarList {
+        let mut var_list = VarList::new();
+        for value in vec.into_iter() {
+            var_list = var_list + value;
+        }
+        var_list
+    }
+}
+
 impl Add<u16> for VarList {
     type Output = VarList;
 
@@ -250,6 +284,16 @@ impl Set<u16> for VarList {
         }
         self.data_stack_[index].type_ = ValueType::ValueTypeU16;
         self.data_stack_[index].data_ = AnyData::VU16(value);
+    }
+}
+
+impl Init<Vec<u32>> for VarList {
+    fn init(vec: Vec<u32>) -> VarList {
+        let mut var_list = VarList::new();
+        for value in vec.into_iter() {
+            var_list = var_list + value;
+        }
+        var_list
     }
 }
 
@@ -286,6 +330,16 @@ impl Set<u32> for VarList {
     }
 }
 
+impl Init<Vec<u64>> for VarList {
+    fn init(vec: Vec<u64>) -> VarList {
+        let mut var_list = VarList::new();
+        for value in vec.into_iter() {
+            var_list = var_list + value;
+        }
+        var_list
+    }
+}
+
 impl Add<u64> for VarList {
     type Output = VarList;
 
@@ -316,6 +370,16 @@ impl Set<u64> for VarList {
         }
         self.data_stack_[index].type_ = ValueType::ValueTypeU64;
         self.data_stack_[index].data_ = AnyData::VU64(value);
+    }
+}
+
+impl Init<Vec<u128>> for VarList {
+    fn init(vec: Vec<u128>) -> VarList {
+        let mut var_list = VarList::new();
+        for value in vec.into_iter() {
+            var_list = var_list + value;
+        }
+        var_list
     }
 }
 
@@ -352,6 +416,16 @@ impl Set<u128> for VarList {
     }
 }
 
+impl Init<Vec<i8>> for VarList {
+    fn init(vec: Vec<i8>) -> VarList {
+        let mut var_list = VarList::new();
+        for value in vec.into_iter() {
+            var_list = var_list + value;
+        }
+        var_list
+    }
+}
+
 impl Add<i8> for VarList {
     type Output = VarList;
 
@@ -382,6 +456,16 @@ impl Set<i8> for VarList {
         }
         self.data_stack_[index].type_ = ValueType::ValueTypeI8;
         self.data_stack_[index].data_ = AnyData::VI8(value);
+    }
+}
+
+impl Init<Vec<i16>> for VarList {
+    fn init(vec: Vec<i16>) -> VarList {
+        let mut var_list = VarList::new();
+        for value in vec.into_iter() {
+            var_list = var_list + value;
+        }
+        var_list
     }
 }
 
@@ -418,6 +502,16 @@ impl Set<i16> for VarList {
     }
 }
 
+impl Init<Vec<i32>> for VarList {
+    fn init(vec: Vec<i32>) -> VarList {
+        let mut var_list = VarList::new();
+        for value in vec.into_iter() {
+            var_list = var_list + value;
+        }
+        var_list
+    }
+}
+
 impl Add<i32> for VarList {
     type Output = VarList;
 
@@ -448,6 +542,16 @@ impl Set<i32> for VarList {
         }
         self.data_stack_[index].type_ = ValueType::ValueTypeI32;
         self.data_stack_[index].data_ = AnyData::VI32(value);
+    }
+}
+
+impl Init<Vec<i64>> for VarList {
+    fn init(vec: Vec<i64>) -> VarList {
+        let mut var_list = VarList::new();
+        for value in vec.into_iter() {
+            var_list = var_list + value;
+        }
+        var_list
     }
 }
 
@@ -484,6 +588,16 @@ impl Set<i64> for VarList {
     }
 }
 
+impl Init<Vec<i128>> for VarList {
+    fn init(vec: Vec<i128>) -> VarList {
+        let mut var_list = VarList::new();
+        for value in vec.into_iter() {
+            var_list = var_list + value;
+        }
+        var_list
+    }
+}
+
 impl Add<i128> for VarList {
     type Output = VarList;
 
@@ -514,6 +628,16 @@ impl Set<i128> for VarList {
         }
         self.data_stack_[index].type_ = ValueType::ValueTypeI128;
         self.data_stack_[index].data_ = AnyData::VI128(value);
+    }
+}
+
+impl Init<Vec<f32>> for VarList {
+    fn init(vec: Vec<f32>) -> VarList {
+        let mut var_list = VarList::new();
+        for value in vec.into_iter() {
+            var_list = var_list + value;
+        }
+        var_list
     }
 }
 
@@ -550,6 +674,16 @@ impl Set<f32> for VarList {
     }
 }
 
+impl Init<Vec<f64>> for VarList {
+    fn init(vec: Vec<f64>) -> VarList {
+        let mut var_list = VarList::new();
+        for value in vec.into_iter() {
+            var_list = var_list + value;
+        }
+        var_list
+    }
+}
+
 impl Add<f64> for VarList {
     type Output = VarList;
 
@@ -580,6 +714,16 @@ impl Set<f64> for VarList {
         }
         self.data_stack_[index].type_ = ValueType::ValueTypeF64;
         self.data_stack_[index].data_ = AnyData::VF64(value);
+    }
+}
+
+impl Init<Vec<String>> for VarList {
+    fn init(vec: Vec<String>) -> VarList {
+        let mut var_list = VarList::new();
+        for value in vec.into_iter() {
+            var_list = var_list + value;
+        }
+        var_list
     }
 }
 
@@ -616,6 +760,16 @@ impl Set<String> for VarList {
         }
         self.data_stack_[index].type_ = ValueType::ValueTypeStr;
         self.data_stack_[index].data_ = AnyData::VStr(value);
+    }
+}
+
+impl Init<Vec<ObjId>> for VarList {
+    fn init(vec: Vec<ObjId>) -> VarList {
+        let mut var_list = VarList::new();
+        for value in vec.into_iter() {
+            var_list = var_list + value;
+        }
+        var_list
     }
 }
 

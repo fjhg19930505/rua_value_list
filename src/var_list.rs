@@ -2,15 +2,15 @@ use std::ops::Add;
 use crate::value::{ValueData, ValueType, AnyData};
 use crate::ObjId;
 
-trait Get<T> {
+pub trait Get<T> {
     fn get(&self, index: usize) -> T;
 }
 
-trait Set<T> {
+pub trait Set<T> {
     fn set(&mut self, index: usize, value: T);
 }
 
-trait Init<T> {
+pub trait Init<T> {
     fn init(t: T) -> VarList;
 }
 

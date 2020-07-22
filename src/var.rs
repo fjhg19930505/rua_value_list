@@ -2,11 +2,11 @@ use super::obj_id::ObjId;
 use crate::value::{ValueData};
 use crate::{ValueType, AnyData};
 
-trait Get<T> {
+pub trait Get<T> {
     fn get(self) -> T;
 }
 
-trait Set<T> {
+pub trait Set<T> {
     fn set(&mut self, value: T);
 }
 

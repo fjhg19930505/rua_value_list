@@ -54,6 +54,81 @@ impl Set<bool> for Var {
     }
 }
 
+impl Get<u8> for Var{
+    fn get(self) -> u8 {
+        match self.data_.data_ {
+            AnyData::VU8(value) => value,
+            _ => panic!("var get value type is error!")
+        }
+    }
+}
+
+impl Set<u8> for Var {
+    fn set(&mut self, value: u8) {
+        self.data_.data_ = AnyData::VU8(value);
+    }
+}
+
+impl Get<u16> for Var{
+    fn get(self) -> u16 {
+        match self.data_.data_ {
+            AnyData::VU16(value) => value,
+            _ => panic!("var get value type is error!")
+        }
+    }
+}
+
+impl Set<u16> for Var {
+    fn set(&mut self, value: u16) {
+        self.data_.data_ = AnyData::VU16(value);
+    }
+}
+
+impl Get<u32> for Var{
+    fn get(self) -> u32 {
+        match self.data_.data_ {
+            AnyData::VU32(value) => value,
+            _ => panic!("var get value type is error!")
+        }
+    }
+}
+
+impl Set<u32> for Var {
+    fn set(&mut self, value: u32) {
+        self.data_.data_ = AnyData::VU32(value);
+    }
+}
+
+impl Get<u64> for Var{
+    fn get(self) -> u64 {
+        match self.data_.data_ {
+            AnyData::VU64(value) => value,
+            _ => panic!("var get value type is error!")
+        }
+    }
+}
+
+impl Set<u64> for Var {
+    fn set(&mut self, value: u64) {
+        self.data_.data_ = AnyData::VU64(value);
+    }
+}
+
+impl Get<u128> for Var{
+    fn get(self) -> u128 {
+        match self.data_.data_ {
+            AnyData::VU128(value) => value,
+            _ => panic!("var get value type is error!")
+        }
+    }
+}
+
+impl Set<u128> for Var {
+    fn set(&mut self, value: u128) {
+        self.data_.data_ = AnyData::VU128(value);
+    }
+}
+
 impl Get<i8> for Var{
     fn get(self) -> i8 {
         match self.data_.data_ {

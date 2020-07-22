@@ -37,6 +37,26 @@ impl VarList {
                     let value: bool = src.get(i);
                     temp = temp.add(value);
                 },
+                ValueType::ValueTypeU8 => {
+                    let value: u8 = src.get(i);
+                    temp = temp.add(value);
+                },
+                ValueType::ValueTypeU16 => {
+                    let value: u16 = src.get(i);
+                    temp = temp.add(value);
+                },
+                ValueType::ValueTypeU32 => {
+                    let value: u32 = src.get(i);
+                    temp = temp.add(value);
+                },
+                ValueType::ValueTypeU64 => {
+                    let value: u64 = src.get(i);
+                    temp = temp.add(value);
+                },
+                ValueType::ValueTypeU128 => {
+                    let value: u128 = src.get(i);
+                    temp = temp.add(value);
+                },
                 ValueType::ValueTypeI8 => {
                     let value: i8 = src.get(i);
                     temp = temp.add(value);
@@ -110,6 +130,11 @@ impl VarList {
         for i in 0 .. self.get_count() {
             match self.get_type(i) {
                 ValueType::ValueTypeBool => mem += 2,
+                ValueType::ValueTypeU8 => mem += 4,
+                ValueType::ValueTypeU16 => mem += 8,
+                ValueType::ValueTypeU32 => mem += 16,
+                ValueType::ValueTypeU64 => mem += 32,
+                ValueType::ValueTypeU128 => mem += 64,
                 ValueType::ValueTypeI8 => mem += 4,
                 ValueType::ValueTypeI16 => mem += 8,
                 ValueType::ValueTypeI32 => mem += 16,
@@ -159,6 +184,171 @@ impl Set<bool> for VarList {
         }
         self.data_stack_[index].type_ = ValueType::ValueTypeBool;
         self.data_stack_[index].data_ = AnyData::VBool(value);
+    }
+}
+
+impl Add<u8> for VarList {
+    type Output = VarList;
+
+    fn add(self, value: u8) -> Self::Output {
+        let mut temp = self.clone();
+        let var = ValueData{type_: ValueType::ValueTypeU8, data_: AnyData::VU8(value)};
+        temp.data_stack_.push(var);
+        temp
+    }
+}
+
+impl Get<u8> for VarList {
+    fn get(&self, index: usize) -> u8 {
+        if index >= self.data_stack_.len() {
+            return 0;
+        }
+        match self.data_stack_[index].data_ {
+            AnyData::VU8(value) => value,
+            _ => panic!("varList get type error!")
+        }
+    }
+}
+
+impl Set<u8> for VarList {
+    fn set(&mut self, index: usize, value: u8) {
+        if index >= self.data_stack_.len() {
+            return;
+        }
+        self.data_stack_[index].type_ = ValueType::ValueTypeU8;
+        self.data_stack_[index].data_ = AnyData::VU8(value);
+    }
+}
+
+impl Add<u16> for VarList {
+    type Output = VarList;
+
+    fn add(self, value: u16) -> Self::Output {
+        let mut temp = self.clone();
+        let var = ValueData{type_: ValueType::ValueTypeU16, data_: AnyData::VU16(value)};
+        temp.data_stack_.push(var);
+        temp
+    }
+}
+
+impl Get<u16> for VarList {
+    fn get(&self, index: usize) -> u16 {
+        if index >= self.data_stack_.len() {
+            return 0;
+        }
+        match self.data_stack_[index].data_ {
+            AnyData::VU16(value) => value,
+            _ => panic!("varList get type error!")
+        }
+    }
+}
+
+impl Set<u16> for VarList {
+    fn set(&mut self, index: usize, value: u16) {
+        if index >= self.data_stack_.len() {
+            return;
+        }
+        self.data_stack_[index].type_ = ValueType::ValueTypeU16;
+        self.data_stack_[index].data_ = AnyData::VU16(value);
+    }
+}
+
+impl Add<u32> for VarList {
+    type Output = VarList;
+
+    fn add(self, value: u32) -> Self::Output {
+        let mut temp = self.clone();
+        let var = ValueData{type_: ValueType::ValueTypeU32, data_: AnyData::VU32(value)};
+        temp.data_stack_.push(var);
+        temp
+    }
+}
+
+impl Get<u32> for VarList {
+    fn get(&self, index: usize) -> u32 {
+        if index >= self.data_stack_.len() {
+            return 0;
+        }
+        match self.data_stack_[index].data_ {
+            AnyData::VU32(value) => value,
+            _ => panic!("varList get type error!")
+        }
+    }
+}
+
+impl Set<u32> for VarList {
+    fn set(&mut self, index: usize, value: u32) {
+        if index >= self.data_stack_.len() {
+            return;
+        }
+        self.data_stack_[index].type_ = ValueType::ValueTypeU32;
+        self.data_stack_[index].data_ = AnyData::VU32(value);
+    }
+}
+
+impl Add<u64> for VarList {
+    type Output = VarList;
+
+    fn add(self, value: u64) -> Self::Output {
+        let mut temp = self.clone();
+        let var = ValueData{type_: ValueType::ValueTypeU64, data_: AnyData::VU64(value)};
+        temp.data_stack_.push(var);
+        temp
+    }
+}
+
+impl Get<u64> for VarList {
+    fn get(&self, index: usize) -> u64 {
+        if index >= self.data_stack_.len() {
+            return 0;
+        }
+        match self.data_stack_[index].data_ {
+            AnyData::VU64(value) => value,
+            _ => panic!("varList get type error!")
+        }
+    }
+}
+
+impl Set<u64> for VarList {
+    fn set(&mut self, index: usize, value: u64) {
+        if index >= self.data_stack_.len() {
+            return;
+        }
+        self.data_stack_[index].type_ = ValueType::ValueTypeU64;
+        self.data_stack_[index].data_ = AnyData::VU64(value);
+    }
+}
+
+impl Add<u128> for VarList {
+    type Output = VarList;
+
+    fn add(self, value: u128) -> Self::Output {
+        let mut temp = self.clone();
+        let var = ValueData{type_: ValueType::ValueTypeU128, data_: AnyData::VU128(value)};
+        temp.data_stack_.push(var);
+        temp
+    }
+}
+
+impl Get<u128> for VarList {
+    fn get(&self, index: usize) -> u128 {
+        if index >= self.data_stack_.len() {
+            return 0;
+        }
+        match self.data_stack_[index].data_ {
+            AnyData::VU128(value) => value,
+            _ => panic!("varList get type error!")
+        }
+    }
+}
+
+impl Set<u128> for VarList {
+    fn set(&mut self, index: usize, value: u128) {
+        if index >= self.data_stack_.len() {
+            return;
+        }
+        self.data_stack_[index].type_ = ValueType::ValueTypeU128;
+        self.data_stack_[index].data_ = AnyData::VU128(value);
     }
 }
 

@@ -1,3 +1,7 @@
+extern crate rustc_serialize;
+
+pub mod macros;
+pub mod config;
 pub mod error;
 pub mod obj_id;
 pub mod var;

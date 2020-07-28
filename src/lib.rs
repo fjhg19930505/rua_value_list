@@ -12,3 +12,4 @@ pub use var_list::{VarList};
 pub use value::{ValueType, AnyData, ValueData};
 pub use obj_id::ObjId;
 pub use error::{RpResult, RpError};
+pub use config::Config;

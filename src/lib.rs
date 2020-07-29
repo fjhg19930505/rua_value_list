@@ -9,7 +9,7 @@ pub mod var_list;
 pub mod value;
 
 pub use var_list::{VarList};
-pub use value::{ValueType, AnyData, ValueData, get_type_by_name};
+pub use value::*;
 pub use obj_id::ObjId;
 pub use error::{RpResult, RpError};
 pub use config::Config;

@@ -1,5 +1,21 @@
 use crate::ObjId;
 
+pub const STR_TYPE_NULL: &'static str = "null";
+pub const STR_TYPE_U8: &'static str = "u8";
+pub const STR_TYPE_I8: &'static str = "i8";
+pub const STR_TYPE_U16: &'static str = "u16";
+pub const STR_TYPE_I16: &'static str = "i16";
+pub const STR_TYPE_U32: &'static str = "u32";
+pub const STR_TYPE_I32: &'static str = "i32";
+pub const STR_TYPE_U64: &'static str = "u64";
+pub const STR_TYPE_I64: &'static str = "i64";
+pub const STR_TYPE_U128: &'static str = "u128";
+pub const STR_TYPE_I128: &'static str = "i128";
+pub const STR_TYPE_F32: &'static str = "f32";
+pub const STR_TYPE_F64: &'static str = "f64";
+pub const STR_TYPE_STR: &'static str = "str";
+pub const STR_TYPE_OBJ: &'static str = "obj";
+
 #[derive(Debug, Clone, Eq, PartialEq)]
 pub enum ValueType{
     ValueTypeUnKnow,		    // 未知
@@ -143,5 +159,24 @@ impl ValueData {
             type_: ValueType::ValueTypeUnKnow,
             data_: AnyData::VUnknown,
         }
+    }
+}
+
+pub fn get_type_by_name(name: &str) -> ValueType {
+    match name {
+        STR_TYPE_NULL => ValueType::ValueTypeUnKnow,
+        STR_TYPE_U8 => ValueType::ValueTypeU8,
+        STR_TYPE_U16 => ValueType::ValueTypeU16,
+        STR_TYPE_U32 => ValueType::ValueTypeU32,
+        STR_TYPE_U64 => ValueType::ValueTypeU64,
+        STR_TYPE_U128 => ValueType::ValueTypeU128,
+        STR_TYPE_I8 => ValueType::ValueTypeI8,
+        STR_TYPE_I16 => ValueType::ValueTypeI16,
+        STR_TYPE_I32 => ValueType::ValueTypeI32,
+        STR_TYPE_I64 => ValueType::ValueTypeI64,
+        STR_TYPE_I128 => ValueType::ValueTypeI128,
+        STR_TYPE_STR => ValueType::ValueTypeStr,
+        STR_TYPE_OBJ => ValueType::ValueTypeObj,
+        _ => ValueType::ValueTypeUnKnow,
     }
 }

@@ -1,5 +1,6 @@
 use rustc_serialize::json;
 use std::collections::HashMap;
+use crate::ValueType;
 
 #[derive(RustcDecodable, Debug)]
 pub struct Field {
@@ -29,13 +30,13 @@ impl Field {
     }
 
     pub fn is_null_type(&self) -> bool{
-        return self.index == 0 && "null" == self.pattern
+        return self.index == 0 && "null".to_string() == self.pattern
     }
 
     pub fn new(pattern: String) -> Field {
         Field {
             index: 0,
-            pattern,
+            pattern: "null".to_string(),
         }
     }
 }

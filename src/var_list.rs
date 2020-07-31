@@ -11,7 +11,7 @@ pub trait Set<T> {
 }
 
 pub trait Put<T> {
-    fn put(&mut self, value: T);
+    fn put(&mut self, value: T) -> &mut Self;
 }
 
 pub trait Init<T> {
@@ -206,9 +206,10 @@ impl Set<bool> for VarList {
 }
 
 impl Put<bool> for VarList {
-    fn put(&mut self, value: bool) {
+    fn put(&mut self, value: bool) -> &mut Self{
         let var = ValueData{type_: ValueType::ValueTypeBool, data_: AnyData::VBool(value)};
         self.data_stack_.push(var);
+        self
     }
 }
 
@@ -256,9 +257,10 @@ impl Set<u8> for VarList {
 }
 
 impl Put<u8> for VarList {
-    fn put(&mut self, value: u8) {
+    fn put(&mut self, value: u8) -> &mut Self{
         let var = ValueData{type_: ValueType::ValueTypeU8, data_: AnyData::VU8(value)};
         self.data_stack_.push(var);
+        self
     }
 }
 
@@ -306,9 +308,10 @@ impl Set<u16> for VarList {
 }
 
 impl Put<u16> for VarList {
-    fn put(&mut self, value: u16) {
+    fn put(&mut self, value: u16) -> &mut Self{
         let var = ValueData{type_: ValueType::ValueTypeU16, data_: AnyData::VU16(value)};
         self.data_stack_.push(var);
+        self
     }
 }
 
@@ -356,9 +359,10 @@ impl Set<u32> for VarList {
 }
 
 impl Put<u32> for VarList {
-    fn put(&mut self, value: u32) {
+    fn put(&mut self, value: u32) -> &mut Self{
         let var = ValueData{type_: ValueType::ValueTypeU32, data_: AnyData::VU32(value)};
         self.data_stack_.push(var);
+        self
     }
 }
 
@@ -416,9 +420,10 @@ impl Init<Vec<u128>> for VarList {
 }
 
 impl Put<u64> for VarList {
-    fn put(&mut self, value: u64) {
+    fn put(&mut self, value: u64) -> &mut Self {
         let var = ValueData{type_: ValueType::ValueTypeU64, data_: AnyData::VU64(value)};
         self.data_stack_.push(var);
+        self
     }
 }
 
@@ -456,9 +461,10 @@ impl Set<u128> for VarList {
 }
 
 impl Put<u128> for VarList {
-    fn put(&mut self, value: u128) {
+    fn put(&mut self, value: u128) -> &mut Self{
         let var = ValueData{type_: ValueType::ValueTypeU128, data_: AnyData::VU128(value)};
         self.data_stack_.push(var);
+        self
     }
 }
 
@@ -506,9 +512,10 @@ impl Set<i8> for VarList {
 }
 
 impl Put<i8> for VarList {
-    fn put(&mut self, value: i8) {
+    fn put(&mut self, value: i8) -> &mut Self{
         let var = ValueData{type_: ValueType::ValueTypeI8, data_: AnyData::VI8(value)};
         self.data_stack_.push(var);
+        self
     }
 }
 
@@ -556,9 +563,10 @@ impl Set<i16> for VarList {
 }
 
 impl Put<i16> for VarList {
-    fn put(&mut self, value: i16) {
+    fn put(&mut self, value: i16) -> &mut Self{
         let var = ValueData{type_: ValueType::ValueTypeI16, data_: AnyData::VI16(value)};
         self.data_stack_.push(var);
+        self
     }
 }
 
@@ -606,9 +614,10 @@ impl Set<i32> for VarList {
 }
 
 impl Put<i32> for VarList {
-    fn put(&mut self, value: i32) {
+    fn put(&mut self, value: i32) -> &mut Self{
         let var = ValueData{type_: ValueType::ValueTypeI32, data_: AnyData::VI32(value)};
         self.data_stack_.push(var);
+        self
     }
 }
 
@@ -656,9 +665,10 @@ impl Set<i64> for VarList {
 }
 
 impl Put<i64> for VarList {
-    fn put(&mut self, value: i64) {
+    fn put(&mut self, value: i64) -> &mut Self{
         let var = ValueData{type_: ValueType::ValueTypeI64, data_: AnyData::VI64(value)};
         self.data_stack_.push(var);
+        self
     }
 }
 
@@ -706,9 +716,10 @@ impl Set<i128> for VarList {
 }
 
 impl Put<i128> for VarList {
-    fn put(&mut self, value: i128) {
+    fn put(&mut self, value: i128) -> &mut Self{
         let var = ValueData{type_: ValueType::ValueTypeI128, data_: AnyData::VI128(value)};
         self.data_stack_.push(var);
+        self
     }
 }
 
@@ -756,9 +767,10 @@ impl Set<f32> for VarList {
 }
 
 impl Put<f32> for VarList {
-    fn put(&mut self, value: f32) {
+    fn put(&mut self, value: f32) -> &mut Self{
         let var = ValueData{type_: ValueType::ValueTypeF32, data_: AnyData::VF32(value)};
         self.data_stack_.push(var);
+        self
     }
 }
 
@@ -806,9 +818,10 @@ impl Set<f64> for VarList {
 }
 
 impl Put<f64> for VarList {
-    fn put(&mut self, value: f64) {
+    fn put(&mut self, value: f64) -> &mut Self{
         let var = ValueData{type_: ValueType::ValueTypeF64, data_: AnyData::VF64(value)};
         self.data_stack_.push(var);
+        self
     }
 }
 
@@ -859,9 +872,10 @@ impl Set<String> for VarList {
 }
 
 impl Put<String> for VarList {
-    fn put(&mut self, value: String) {
+    fn put(&mut self, value: String) -> &mut Self{
         let var = ValueData{type_: ValueType::ValueTypeStr, data_: AnyData::VStr(value)};
         self.data_stack_.push(var);
+        self
     }
 }
 
@@ -910,9 +924,10 @@ impl Set<ObjId> for VarList {
 }
 
 impl Put<ObjId> for VarList {
-    fn put(&mut self, value: ObjId) {
+    fn put(&mut self, value: ObjId) -> &mut Self{
         let var = ValueData{type_: ValueType::ValueTypeObj, data_: AnyData::VObj(value)};
         self.data_stack_.push(var);
+        self
     }
 }
 

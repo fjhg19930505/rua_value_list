@@ -7,18 +7,20 @@ pub struct ObjId {
 }
 
 impl ObjId {
-    pub fn is_null(&self) -> bool{
+    pub fn is_null(&self) -> bool {
         self.ident_ == 0 && self.serial_ == 0
     }
 
-    pub fn equal_to(&self, other: &ObjId) -> bool{
+    pub fn equal_to(&self, other: &ObjId) -> bool {
         self.ident_ == other.ident_ && self.serial_ == other.serial_
     }
 
     pub fn new_null() -> ObjId {
-        ObjId{ident_: 0, serial_: 0}
+        ObjId {
+            ident_: 0,
+            serial_: 0,
+        }
     }
-
 }
 
 impl From<String> for ObjId {
@@ -31,7 +33,7 @@ impl From<String> for ObjId {
 
         let ident = u32::from_str(vec[0]).ok().unwrap();
         let serial = u32::from_str(vec[1]).ok().unwrap();
-        ObjId{
+        ObjId {
             ident_: ident,
             serial_: serial,
         }

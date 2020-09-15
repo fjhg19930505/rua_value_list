@@ -1,6 +1,6 @@
 use super::obj_id::ObjId;
-use crate::value::{ValueData};
-use crate::{ValueType, AnyData};
+use crate::value::ValueData;
+use crate::{AnyData, ValueType};
 
 pub trait Get<T> {
     fn get(self) -> T;
@@ -16,34 +16,38 @@ pub struct Var {
 
 impl Var {
     pub fn new() -> Var {
-        Var{data_: ValueData::new()}
+        Var {
+            data_: ValueData::new(),
+        }
     }
 }
 
 impl Var {
-    pub fn get_type(self) -> ValueType{
+    pub fn get_type(self) -> ValueType {
         self.data_.type_
     }
 
     pub fn is_integer(&self) -> bool {
-        self.data_.type_ == ValueType::ValueTypeI8 || self.data_.type_ == ValueType::ValueTypeI16
-            || self.data_.type_ == ValueType::ValueTypeI32 || self.data_.type_ == ValueType::ValueTypeI64
+        self.data_.type_ == ValueType::ValueTypeI8
+            || self.data_.type_ == ValueType::ValueTypeI16
+            || self.data_.type_ == ValueType::ValueTypeI32
+            || self.data_.type_ == ValueType::ValueTypeI64
     }
 
-    pub fn is_real(&self) -> bool{
+    pub fn is_real(&self) -> bool {
         self.data_.type_ == ValueType::ValueTypeF32 || self.data_.type_ == ValueType::ValueTypeF64
     }
 
-    pub fn is_number(&self) -> bool{
+    pub fn is_number(&self) -> bool {
         self.is_integer() || self.is_real()
     }
 }
 
-impl Get<bool> for Var{
+impl Get<bool> for Var {
     fn get(self) -> bool {
         match self.data_.data_ {
             AnyData::VBool(value) => value,
-            _ => panic!("var get value type is error!")
+            _ => panic!("var get value type is error!"),
         }
     }
 }
@@ -54,11 +58,11 @@ impl Set<bool> for Var {
     }
 }
 
-impl Get<u8> for Var{
+impl Get<u8> for Var {
     fn get(self) -> u8 {
         match self.data_.data_ {
             AnyData::VU8(value) => value,
-            _ => panic!("var get value type is error!")
+            _ => panic!("var get value type is error!"),
         }
     }
 }
@@ -69,11 +73,11 @@ impl Set<u8> for Var {
     }
 }
 
-impl Get<u16> for Var{
+impl Get<u16> for Var {
     fn get(self) -> u16 {
         match self.data_.data_ {
             AnyData::VU16(value) => value,
-            _ => panic!("var get value type is error!")
+            _ => panic!("var get value type is error!"),
         }
     }
 }
@@ -84,11 +88,11 @@ impl Set<u16> for Var {
     }
 }
 
-impl Get<u32> for Var{
+impl Get<u32> for Var {
     fn get(self) -> u32 {
         match self.data_.data_ {
             AnyData::VU32(value) => value,
-            _ => panic!("var get value type is error!")
+            _ => panic!("var get value type is error!"),
         }
     }
 }
@@ -99,11 +103,11 @@ impl Set<u32> for Var {
     }
 }
 
-impl Get<u64> for Var{
+impl Get<u64> for Var {
     fn get(self) -> u64 {
         match self.data_.data_ {
             AnyData::VU64(value) => value,
-            _ => panic!("var get value type is error!")
+            _ => panic!("var get value type is error!"),
         }
     }
 }
@@ -114,11 +118,11 @@ impl Set<u64> for Var {
     }
 }
 
-impl Get<u128> for Var{
+impl Get<u128> for Var {
     fn get(self) -> u128 {
         match self.data_.data_ {
             AnyData::VU128(value) => value,
-            _ => panic!("var get value type is error!")
+            _ => panic!("var get value type is error!"),
         }
     }
 }
@@ -129,11 +133,11 @@ impl Set<u128> for Var {
     }
 }
 
-impl Get<i8> for Var{
+impl Get<i8> for Var {
     fn get(self) -> i8 {
         match self.data_.data_ {
             AnyData::VI8(value) => value,
-            _ => panic!("var get value type is error!")
+            _ => panic!("var get value type is error!"),
         }
     }
 }
@@ -144,11 +148,11 @@ impl Set<i8> for Var {
     }
 }
 
-impl Get<i16> for Var{
+impl Get<i16> for Var {
     fn get(self) -> i16 {
         match self.data_.data_ {
             AnyData::VI16(value) => value,
-            _ => panic!("var get value type is error!")
+            _ => panic!("var get value type is error!"),
         }
     }
 }
@@ -159,11 +163,11 @@ impl Set<i16> for Var {
     }
 }
 
-impl Get<i32> for Var{
+impl Get<i32> for Var {
     fn get(self) -> i32 {
         match self.data_.data_ {
             AnyData::VI32(value) => value,
-            _ => panic!("var get value type is error!")
+            _ => panic!("var get value type is error!"),
         }
     }
 }
@@ -174,11 +178,11 @@ impl Set<i32> for Var {
     }
 }
 
-impl Get<i64> for Var{
+impl Get<i64> for Var {
     fn get(self) -> i64 {
         match self.data_.data_ {
             AnyData::VI64(value) => value,
-            _ => panic!("var get value type is error!")
+            _ => panic!("var get value type is error!"),
         }
     }
 }
@@ -189,11 +193,11 @@ impl Set<i64> for Var {
     }
 }
 
-impl Get<i128> for Var{
+impl Get<i128> for Var {
     fn get(self) -> i128 {
         match self.data_.data_ {
             AnyData::VI128(value) => value,
-            _ => panic!("var get value type is error!")
+            _ => panic!("var get value type is error!"),
         }
     }
 }
@@ -204,11 +208,11 @@ impl Set<i128> for Var {
     }
 }
 
-impl Get<f32> for Var{
+impl Get<f32> for Var {
     fn get(self) -> f32 {
         match self.data_.data_ {
             AnyData::VF32(value) => value,
-            _ => panic!("var get value type is error!")
+            _ => panic!("var get value type is error!"),
         }
     }
 }
@@ -219,11 +223,11 @@ impl Set<f32> for Var {
     }
 }
 
-impl Get<f64> for Var{
+impl Get<f64> for Var {
     fn get(self) -> f64 {
         match self.data_.data_ {
             AnyData::VF64(value) => value,
-            _ => panic!("var get value type is error!")
+            _ => panic!("var get value type is error!"),
         }
     }
 }
@@ -234,11 +238,11 @@ impl Set<f64> for Var {
     }
 }
 
-impl Get<String> for Var{
+impl Get<String> for Var {
     fn get(self) -> String {
         match self.data_.data_ {
             AnyData::VStr(value) => value,
-            _ => panic!("var get value type is error!")
+            _ => panic!("var get value type is error!"),
         }
     }
 }
@@ -249,11 +253,11 @@ impl Set<String> for Var {
     }
 }
 
-impl Get<ObjId> for Var{
+impl Get<ObjId> for Var {
     fn get(self) -> ObjId {
         match self.data_.data_ {
             AnyData::VObj(value) => value,
-            _ => panic!("var get value type is error!")
+            _ => panic!("var get value type is error!"),
         }
     }
 }
@@ -263,5 +267,3 @@ impl Set<ObjId> for Var {
         self.data_.data_ = AnyData::VObj(value);
     }
 }
-
-

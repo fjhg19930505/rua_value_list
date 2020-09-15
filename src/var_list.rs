@@ -1,6 +1,6 @@
-use std::ops::Add;
-use crate::value::{ValueData, ValueType, AnyData};
+use crate::value::{AnyData, ValueData, ValueType};
 use crate::ObjId;
+use std::ops::Add;
 
 pub trait Get<T> {
     fn get(&self, index: usize) -> T;
@@ -25,7 +25,9 @@ pub struct VarList {
 
 impl VarList {
     pub fn new() -> VarList {
-        VarList{data_stack_: vec![]}
+        VarList {
+            data_stack_: vec![],
+        }
     }
 }
 
@@ -39,69 +41,71 @@ impl VarList {
 
     fn inner_append(self, src: VarList, start: usize, end: usize) -> VarList {
         let mut temp = self.clone();
-        for i in start .. end {
+        for i in start..end {
             match src.get_type(i) {
                 ValueType::ValueTypeBool => {
                     let value: bool = src.get(i);
                     temp = temp.add(value);
-                },
+                }
                 ValueType::ValueTypeU8 => {
                     let value: u8 = src.get(i);
                     temp = temp.add(value);
-                },
+                }
                 ValueType::ValueTypeU16 => {
                     let value: u16 = src.get(i);
                     temp = temp.add(value);
-                },
+                }
                 ValueType::ValueTypeU32 => {
                     let value: u32 = src.get(i);
                     temp = temp.add(value);
-                },
+                }
                 ValueType::ValueTypeU64 => {
                     let value: u64 = src.get(i);
                     temp = temp.add(value);
-                },
+                }
                 ValueType::ValueTypeU128 => {
                     let value: u128 = src.get(i);
                     temp = temp.add(value);
-                },
+                }
                 ValueType::ValueTypeI8 => {
                     let value: i8 = src.get(i);
                     temp = temp.add(value);
-                },
+                }
                 ValueType::ValueTypeI16 => {
                     let value: i16 = src.get(i);
                     temp = temp.add(value);
-                },
+                }
                 ValueType::ValueTypeI32 => {
                     let value: i32 = src.get(i);
                     temp = temp.add(value);
-                },
+                }
                 ValueType::ValueTypeI64 => {
                     let value: i64 = src.get(i);
                     temp = temp.add(value);
-                },
+                }
                 ValueType::ValueTypeI128 => {
                     let value: i128 = src.get(i);
                     temp = temp.add(value);
-                },
+                }
                 ValueType::ValueTypeF32 => {
                     let value: f32 = src.get(i);
                     temp = temp.add(value);
-                },
+                }
                 ValueType::ValueTypeF64 => {
                     let value: f64 = src.get(i);
                     temp = temp.add(value);
-                },
+                }
                 ValueType::ValueTypeStr => {
                     let value: String = src.get(i);
                     temp = temp.add(value.clone());
-                },
+                }
                 ValueType::ValueTypeObj => {
                     let value: ObjId = src.get(i);
                     temp = temp.add(value);
-                },
-                _ => {println!("type is not valid");},
+                }
+                _ => {
+                    println!("type is not valid");
+                }
             }
         }
 
@@ -135,7 +139,7 @@ impl VarList {
     // 获取内存用量
     fn get_memory_usage<'a>(&self) -> usize {
         let mut mem: usize = 0;
-        for i in 0 .. self.get_count() {
+        for i in 0..self.get_count() {
             match self.get_type(i) {
                 ValueType::ValueTypeBool => mem += 2,
                 ValueType::ValueTypeU8 => mem += 4,
@@ -177,7 +181,10 @@ impl Add<bool> for VarList {
 
     fn add(self, value: bool) -> Self::Output {
         let mut result: Self::Output = self;
-        let var = ValueData{type_: ValueType::ValueTypeBool, data_: AnyData::VBool(value)};
+        let var = ValueData {
+            type_: ValueType::ValueTypeBool,
+            data_: AnyData::VBool(value),
+        };
         result.data_stack_.push(var);
         result
     }
@@ -190,7 +197,7 @@ impl Get<bool> for VarList {
         }
         match self.data_stack_[index].data_ {
             AnyData::VBool(value) => value,
-            _ => panic!("varList get type error!")
+            _ => panic!("varList get type error!"),
         }
     }
 }
@@ -206,8 +213,11 @@ impl Set<bool> for VarList {
 }
 
 impl Put<bool> for VarList {
-    fn put(&mut self, value: bool) -> &mut Self{
-        let var = ValueData{type_: ValueType::ValueTypeBool, data_: AnyData::VBool(value)};
+    fn put(&mut self, value: bool) -> &mut Self {
+        let var = ValueData {
+            type_: ValueType::ValueTypeBool,
+            data_: AnyData::VBool(value),
+        };
         self.data_stack_.push(var);
         self
     }
@@ -228,7 +238,10 @@ impl Add<u8> for VarList {
 
     fn add(self, value: u8) -> Self::Output {
         let mut temp = self.clone();
-        let var = ValueData{type_: ValueType::ValueTypeU8, data_: AnyData::VU8(value)};
+        let var = ValueData {
+            type_: ValueType::ValueTypeU8,
+            data_: AnyData::VU8(value),
+        };
         temp.data_stack_.push(var);
         temp
     }
@@ -241,7 +254,7 @@ impl Get<u8> for VarList {
         }
         match self.data_stack_[index].data_ {
             AnyData::VU8(value) => value,
-            _ => panic!("varList get type error!")
+            _ => panic!("varList get type error!"),
         }
     }
 }
@@ -257,8 +270,11 @@ impl Set<u8> for VarList {
 }
 
 impl Put<u8> for VarList {
-    fn put(&mut self, value: u8) -> &mut Self{
-        let var = ValueData{type_: ValueType::ValueTypeU8, data_: AnyData::VU8(value)};
+    fn put(&mut self, value: u8) -> &mut Self {
+        let var = ValueData {
+            type_: ValueType::ValueTypeU8,
+            data_: AnyData::VU8(value),
+        };
         self.data_stack_.push(var);
         self
     }
@@ -279,7 +295,10 @@ impl Add<u16> for VarList {
 
     fn add(self, value: u16) -> Self::Output {
         let mut temp = self.clone();
-        let var = ValueData{type_: ValueType::ValueTypeU16, data_: AnyData::VU16(value)};
+        let var = ValueData {
+            type_: ValueType::ValueTypeU16,
+            data_: AnyData::VU16(value),
+        };
         temp.data_stack_.push(var);
         temp
     }
@@ -292,7 +311,7 @@ impl Get<u16> for VarList {
         }
         match self.data_stack_[index].data_ {
             AnyData::VU16(value) => value,
-            _ => panic!("varList get type error!")
+            _ => panic!("varList get type error!"),
         }
     }
 }
@@ -308,8 +327,11 @@ impl Set<u16> for VarList {
 }
 
 impl Put<u16> for VarList {
-    fn put(&mut self, value: u16) -> &mut Self{
-        let var = ValueData{type_: ValueType::ValueTypeU16, data_: AnyData::VU16(value)};
+    fn put(&mut self, value: u16) -> &mut Self {
+        let var = ValueData {
+            type_: ValueType::ValueTypeU16,
+            data_: AnyData::VU16(value),
+        };
         self.data_stack_.push(var);
         self
     }
@@ -330,7 +352,10 @@ impl Add<u32> for VarList {
 
     fn add(self, value: u32) -> Self::Output {
         let mut temp = self.clone();
-        let var = ValueData{type_: ValueType::ValueTypeU32, data_: AnyData::VU32(value)};
+        let var = ValueData {
+            type_: ValueType::ValueTypeU32,
+            data_: AnyData::VU32(value),
+        };
         temp.data_stack_.push(var);
         temp
     }
@@ -343,7 +368,7 @@ impl Get<u32> for VarList {
         }
         match self.data_stack_[index].data_ {
             AnyData::VU32(value) => value,
-            _ => panic!("varList get type error!")
+            _ => panic!("varList get type error!"),
         }
     }
 }
@@ -359,8 +384,11 @@ impl Set<u32> for VarList {
 }
 
 impl Put<u32> for VarList {
-    fn put(&mut self, value: u32) -> &mut Self{
-        let var = ValueData{type_: ValueType::ValueTypeU32, data_: AnyData::VU32(value)};
+    fn put(&mut self, value: u32) -> &mut Self {
+        let var = ValueData {
+            type_: ValueType::ValueTypeU32,
+            data_: AnyData::VU32(value),
+        };
         self.data_stack_.push(var);
         self
     }
@@ -381,7 +409,10 @@ impl Add<u64> for VarList {
 
     fn add(self, value: u64) -> Self::Output {
         let mut temp = self.clone();
-        let var = ValueData{type_: ValueType::ValueTypeU64, data_: AnyData::VU64(value)};
+        let var = ValueData {
+            type_: ValueType::ValueTypeU64,
+            data_: AnyData::VU64(value),
+        };
         temp.data_stack_.push(var);
         temp
     }
@@ -394,7 +425,7 @@ impl Get<u64> for VarList {
         }
         match self.data_stack_[index].data_ {
             AnyData::VU64(value) => value,
-            _ => panic!("varList get type error!")
+            _ => panic!("varList get type error!"),
         }
     }
 }
@@ -421,7 +452,10 @@ impl Init<Vec<u128>> for VarList {
 
 impl Put<u64> for VarList {
     fn put(&mut self, value: u64) -> &mut Self {
-        let var = ValueData{type_: ValueType::ValueTypeU64, data_: AnyData::VU64(value)};
+        let var = ValueData {
+            type_: ValueType::ValueTypeU64,
+            data_: AnyData::VU64(value),
+        };
         self.data_stack_.push(var);
         self
     }
@@ -432,7 +466,10 @@ impl Add<u128> for VarList {
 
     fn add(self, value: u128) -> Self::Output {
         let mut temp = self.clone();
-        let var = ValueData{type_: ValueType::ValueTypeU128, data_: AnyData::VU128(value)};
+        let var = ValueData {
+            type_: ValueType::ValueTypeU128,
+            data_: AnyData::VU128(value),
+        };
         temp.data_stack_.push(var);
         temp
     }
@@ -445,7 +482,7 @@ impl Get<u128> for VarList {
         }
         match self.data_stack_[index].data_ {
             AnyData::VU128(value) => value,
-            _ => panic!("varList get type error!")
+            _ => panic!("varList get type error!"),
         }
     }
 }
@@ -461,8 +498,11 @@ impl Set<u128> for VarList {
 }
 
 impl Put<u128> for VarList {
-    fn put(&mut self, value: u128) -> &mut Self{
-        let var = ValueData{type_: ValueType::ValueTypeU128, data_: AnyData::VU128(value)};
+    fn put(&mut self, value: u128) -> &mut Self {
+        let var = ValueData {
+            type_: ValueType::ValueTypeU128,
+            data_: AnyData::VU128(value),
+        };
         self.data_stack_.push(var);
         self
     }
@@ -483,7 +523,10 @@ impl Add<i8> for VarList {
 
     fn add(self, value: i8) -> Self::Output {
         let mut temp = self.clone();
-        let var = ValueData{type_: ValueType::ValueTypeI8, data_: AnyData::VI8(value)};
+        let var = ValueData {
+            type_: ValueType::ValueTypeI8,
+            data_: AnyData::VI8(value),
+        };
         temp.data_stack_.push(var);
         temp
     }
@@ -496,7 +539,7 @@ impl Get<i8> for VarList {
         }
         match self.data_stack_[index].data_ {
             AnyData::VI8(value) => value,
-            _ => panic!("varList get type error!")
+            _ => panic!("varList get type error!"),
         }
     }
 }
@@ -512,8 +555,11 @@ impl Set<i8> for VarList {
 }
 
 impl Put<i8> for VarList {
-    fn put(&mut self, value: i8) -> &mut Self{
-        let var = ValueData{type_: ValueType::ValueTypeI8, data_: AnyData::VI8(value)};
+    fn put(&mut self, value: i8) -> &mut Self {
+        let var = ValueData {
+            type_: ValueType::ValueTypeI8,
+            data_: AnyData::VI8(value),
+        };
         self.data_stack_.push(var);
         self
     }
@@ -534,7 +580,10 @@ impl Add<i16> for VarList {
 
     fn add(self, value: i16) -> Self::Output {
         let mut temp = self.clone();
-        let var = ValueData{type_: ValueType::ValueTypeI16, data_: AnyData::VI16(value)};
+        let var = ValueData {
+            type_: ValueType::ValueTypeI16,
+            data_: AnyData::VI16(value),
+        };
         temp.data_stack_.push(var);
         temp
     }
@@ -547,7 +596,7 @@ impl Get<i16> for VarList {
         }
         match self.data_stack_[index].data_ {
             AnyData::VI16(value) => value,
-            _ => panic!("varList get type error!")
+            _ => panic!("varList get type error!"),
         }
     }
 }
@@ -563,8 +612,11 @@ impl Set<i16> for VarList {
 }
 
 impl Put<i16> for VarList {
-    fn put(&mut self, value: i16) -> &mut Self{
-        let var = ValueData{type_: ValueType::ValueTypeI16, data_: AnyData::VI16(value)};
+    fn put(&mut self, value: i16) -> &mut Self {
+        let var = ValueData {
+            type_: ValueType::ValueTypeI16,
+            data_: AnyData::VI16(value),
+        };
         self.data_stack_.push(var);
         self
     }
@@ -585,7 +637,10 @@ impl Add<i32> for VarList {
 
     fn add(self, value: i32) -> Self::Output {
         let mut temp = self.clone();
-        let var = ValueData{type_: ValueType::ValueTypeI32, data_: AnyData::VI32(value)};
+        let var = ValueData {
+            type_: ValueType::ValueTypeI32,
+            data_: AnyData::VI32(value),
+        };
         temp.data_stack_.push(var);
         temp
     }
@@ -598,7 +653,7 @@ impl Get<i32> for VarList {
         }
         match self.data_stack_[index].data_ {
             AnyData::VI32(value) => value,
-            _ => panic!("varList get type error!")
+            _ => panic!("varList get type error!"),
         }
     }
 }
@@ -614,8 +669,11 @@ impl Set<i32> for VarList {
 }
 
 impl Put<i32> for VarList {
-    fn put(&mut self, value: i32) -> &mut Self{
-        let var = ValueData{type_: ValueType::ValueTypeI32, data_: AnyData::VI32(value)};
+    fn put(&mut self, value: i32) -> &mut Self {
+        let var = ValueData {
+            type_: ValueType::ValueTypeI32,
+            data_: AnyData::VI32(value),
+        };
         self.data_stack_.push(var);
         self
     }
@@ -636,7 +694,10 @@ impl Add<i64> for VarList {
 
     fn add(self, value: i64) -> Self::Output {
         let mut temp = self.clone();
-        let var = ValueData{type_: ValueType::ValueTypeI64, data_: AnyData::VI64(value)};
+        let var = ValueData {
+            type_: ValueType::ValueTypeI64,
+            data_: AnyData::VI64(value),
+        };
         temp.data_stack_.push(var);
         temp
     }
@@ -649,7 +710,7 @@ impl Get<i64> for VarList {
         }
         match self.data_stack_[index].data_ {
             AnyData::VI64(value) => value,
-            _ => panic!("varList get type error!")
+            _ => panic!("varList get type error!"),
         }
     }
 }
@@ -665,8 +726,11 @@ impl Set<i64> for VarList {
 }
 
 impl Put<i64> for VarList {
-    fn put(&mut self, value: i64) -> &mut Self{
-        let var = ValueData{type_: ValueType::ValueTypeI64, data_: AnyData::VI64(value)};
+    fn put(&mut self, value: i64) -> &mut Self {
+        let var = ValueData {
+            type_: ValueType::ValueTypeI64,
+            data_: AnyData::VI64(value),
+        };
         self.data_stack_.push(var);
         self
     }
@@ -687,7 +751,10 @@ impl Add<i128> for VarList {
 
     fn add(self, value: i128) -> Self::Output {
         let mut temp = self.clone();
-        let var = ValueData{type_: ValueType::ValueTypeI128, data_: AnyData::VI128(value)};
+        let var = ValueData {
+            type_: ValueType::ValueTypeI128,
+            data_: AnyData::VI128(value),
+        };
         temp.data_stack_.push(var);
         temp
     }
@@ -700,7 +767,7 @@ impl Get<i128> for VarList {
         }
         match self.data_stack_[index].data_ {
             AnyData::VI128(value) => value,
-            _ => panic!("varList get type error!")
+            _ => panic!("varList get type error!"),
         }
     }
 }
@@ -716,8 +783,11 @@ impl Set<i128> for VarList {
 }
 
 impl Put<i128> for VarList {
-    fn put(&mut self, value: i128) -> &mut Self{
-        let var = ValueData{type_: ValueType::ValueTypeI128, data_: AnyData::VI128(value)};
+    fn put(&mut self, value: i128) -> &mut Self {
+        let var = ValueData {
+            type_: ValueType::ValueTypeI128,
+            data_: AnyData::VI128(value),
+        };
         self.data_stack_.push(var);
         self
     }
@@ -738,7 +808,10 @@ impl Add<f32> for VarList {
 
     fn add(self, value: f32) -> Self::Output {
         let mut temp = self.clone();
-        let var = ValueData{type_: ValueType::ValueTypeF32, data_: AnyData::VF32(value)};
+        let var = ValueData {
+            type_: ValueType::ValueTypeF32,
+            data_: AnyData::VF32(value),
+        };
         temp.data_stack_.push(var);
         temp
     }
@@ -751,7 +824,7 @@ impl Get<f32> for VarList {
         }
         match self.data_stack_[index].data_ {
             AnyData::VF32(value) => value,
-            _ => panic!("varList get type error!")
+            _ => panic!("varList get type error!"),
         }
     }
 }
@@ -767,8 +840,11 @@ impl Set<f32> for VarList {
 }
 
 impl Put<f32> for VarList {
-    fn put(&mut self, value: f32) -> &mut Self{
-        let var = ValueData{type_: ValueType::ValueTypeF32, data_: AnyData::VF32(value)};
+    fn put(&mut self, value: f32) -> &mut Self {
+        let var = ValueData {
+            type_: ValueType::ValueTypeF32,
+            data_: AnyData::VF32(value),
+        };
         self.data_stack_.push(var);
         self
     }
@@ -789,7 +865,10 @@ impl Add<f64> for VarList {
 
     fn add(self, value: f64) -> Self::Output {
         let mut temp = self.clone();
-        let var = ValueData{type_: ValueType::ValueTypeF64, data_: AnyData::VF64(value)};
+        let var = ValueData {
+            type_: ValueType::ValueTypeF64,
+            data_: AnyData::VF64(value),
+        };
         temp.data_stack_.push(var);
         temp
     }
@@ -802,7 +881,7 @@ impl Get<f64> for VarList {
         }
         match self.data_stack_[index].data_ {
             AnyData::VF64(value) => value,
-            _ => panic!("varList get type error!")
+            _ => panic!("varList get type error!"),
         }
     }
 }
@@ -818,8 +897,11 @@ impl Set<f64> for VarList {
 }
 
 impl Put<f64> for VarList {
-    fn put(&mut self, value: f64) -> &mut Self{
-        let var = ValueData{type_: ValueType::ValueTypeF64, data_: AnyData::VF64(value)};
+    fn put(&mut self, value: f64) -> &mut Self {
+        let var = ValueData {
+            type_: ValueType::ValueTypeF64,
+            data_: AnyData::VF64(value),
+        };
         self.data_stack_.push(var);
         self
     }
@@ -840,7 +922,10 @@ impl Add<String> for VarList {
 
     fn add(self, value: String) -> Self::Output {
         let mut temp = self.clone();
-        let var = ValueData{type_: ValueType::ValueTypeStr, data_: AnyData::VStr(value)};
+        let var = ValueData {
+            type_: ValueType::ValueTypeStr,
+            data_: AnyData::VStr(value),
+        };
         temp.data_stack_.push(var);
         temp
     }
@@ -856,7 +941,7 @@ impl Get<String> for VarList {
         let value = data.data_.clone();
         match value {
             AnyData::VStr(value) => value.clone(),
-            _ => panic!("varList get type error!")
+            _ => panic!("varList get type error!"),
         }
     }
 }
@@ -872,8 +957,11 @@ impl Set<String> for VarList {
 }
 
 impl Put<String> for VarList {
-    fn put(&mut self, value: String) -> &mut Self{
-        let var = ValueData{type_: ValueType::ValueTypeStr, data_: AnyData::VStr(value)};
+    fn put(&mut self, value: String) -> &mut Self {
+        let var = ValueData {
+            type_: ValueType::ValueTypeStr,
+            data_: AnyData::VStr(value),
+        };
         self.data_stack_.push(var);
         self
     }
@@ -894,7 +982,10 @@ impl Add<ObjId> for VarList {
 
     fn add(self, value: ObjId) -> Self::Output {
         let mut temp = self.clone();
-        let var = ValueData{type_: ValueType::ValueTypeObj, data_: AnyData::VObj(value)};
+        let var = ValueData {
+            type_: ValueType::ValueTypeObj,
+            data_: AnyData::VObj(value),
+        };
         temp.data_stack_.push(var);
         temp
     }
@@ -908,7 +999,7 @@ impl Get<ObjId> for VarList {
 
         match self.data_stack_[index].data_ {
             AnyData::VObj(value) => value,
-            _ => panic!("varList get type error!")
+            _ => panic!("varList get type error!"),
         }
     }
 }
@@ -924,10 +1015,12 @@ impl Set<ObjId> for VarList {
 }
 
 impl Put<ObjId> for VarList {
-    fn put(&mut self, value: ObjId) -> &mut Self{
-        let var = ValueData{type_: ValueType::ValueTypeObj, data_: AnyData::VObj(value)};
+    fn put(&mut self, value: ObjId) -> &mut Self {
+        let var = ValueData {
+            type_: ValueType::ValueTypeObj,
+            data_: AnyData::VObj(value),
+        };
         self.data_stack_.push(var);
         self
     }
 }
-

@@ -1,6 +1,6 @@
+use crate::ValueType;
 use rustc_serialize::json;
 use std::collections::HashMap;
-use crate::ValueType;
 
 #[derive(RustcDecodable, Debug)]
 pub struct Field {
@@ -24,13 +24,13 @@ pub struct Config {
 impl Field {
     pub fn new_null() -> Field {
         Field {
-            index: 0, 
+            index: 0,
             pattern: "null".to_string(),
         }
     }
 
-    pub fn is_null_type(&self) -> bool{
-        return self.index == 0 && "null".to_string() == self.pattern
+    pub fn is_null_type(&self) -> bool {
+        return self.index == 0 && "null".to_string() == self.pattern;
     }
 
     pub fn new(pattern: String) -> Field {
@@ -63,7 +63,7 @@ impl Config {
             msg_proto.insert(name.clone(), p.msg_type.clone());
         }
 
-        Config { 
+        Config {
             field,
             proto,
             index_field,
@@ -106,7 +106,7 @@ impl Config {
         self.field.get(name)
     }
 
-    pub fn get_field_by_index(&self, index: &u16) -> Option<&Field> { 
+    pub fn get_field_by_index(&self, index: &u16) -> Option<&Field> {
         let name = unwrap_or!(self.get_field_index_name(index), return None);
         self.field.get(name)
     }

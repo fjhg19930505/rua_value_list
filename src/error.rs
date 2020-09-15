@@ -1,5 +1,5 @@
-use std::{io, error, fmt};
 use std::fmt::Display;
+use std::{error, fmt, io};
 
 /// An enum of all error kinds.
 #[derive(PartialEq, Eq, Copy, Clone, Debug)]
@@ -43,15 +43,16 @@ pub struct RpError {
 /// Library generic result type.
 pub type RpResult<T> = Result<T, RpError>;
 
-
 impl PartialEq for RpError {
     fn eq(&self, other: &RpError) -> bool {
         match (&self.repr, &other.repr) {
             (&ErrorRepr::WithDescription(kind_a, _), &ErrorRepr::WithDescription(kind_b, _)) => {
                 kind_a == kind_b
             }
-            (&ErrorRepr::WithDescriptionAndDetail(kind_a, _, _),
-             &ErrorRepr::WithDescriptionAndDetail(kind_b, _, _)) => kind_a == kind_b,
+            (
+                &ErrorRepr::WithDescriptionAndDetail(kind_a, _, _),
+                &ErrorRepr::WithDescriptionAndDetail(kind_b, _, _),
+            ) => kind_a == kind_b,
             (&ErrorRepr::ExtensionError(ref a, _), &ErrorRepr::ExtensionError(ref b, _)) => {
                 *a == *b
             }
@@ -62,20 +63,25 @@ impl PartialEq for RpError {
 
 impl From<io::Error> for RpError {
     fn from(err: io::Error) -> RpError {
-        RpError { repr: ErrorRepr::IoError(err) }
+        RpError {
+            repr: ErrorRepr::IoError(err),
+        }
     }
 }
 
-
 impl From<(ErrorKind, &'static str)> for RpError {
     fn from((kind, desc): (ErrorKind, &'static str)) -> RpError {
-        RpError { repr: ErrorRepr::WithDescription(kind, desc) }
+        RpError {
+            repr: ErrorRepr::WithDescription(kind, desc),
+        }
     }
 }
 
 impl From<(ErrorKind, &'static str, String)> for RpError {
     fn from((kind, desc, detail): (ErrorKind, &'static str, String)) -> RpError {
-        RpError { repr: ErrorRepr::WithDescriptionAndDetail(kind, desc, detail) }
+        RpError {
+            repr: ErrorRepr::WithDescriptionAndDetail(kind, desc, detail),
+        }
     }
 }
 
@@ -176,12 +182,12 @@ impl RpError {
 
 pub fn make_extension_error(code: &str, detail: Option<&str>) -> RpError {
     RpError {
-        repr: ErrorRepr::ExtensionError(code.to_string(),
-                                        match detail {
-                                            Some(x) => x.to_string(),
-                                            None => {
-                                                "Unknown extension error encountered".to_string()
-                                            }
-                                        }),
+        repr: ErrorRepr::ExtensionError(
+            code.to_string(),
+            match detail {
+                Some(x) => x.to_string(),
+                None => "Unknown extension error encountered".to_string(),
+            },
+        ),
     }
 }

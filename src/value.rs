@@ -17,23 +17,23 @@ pub const STR_TYPE_STR: &'static str = "str";
 pub const STR_TYPE_OBJ: &'static str = "obj";
 
 #[derive(Debug, Clone, Eq, PartialEq)]
-pub enum ValueType{
-    ValueTypeUnKnow,		    // 未知
-    ValueTypeBool,			    // 布尔
-    ValueTypeU8,                // 8位无符号
-    ValueTypeU16,               // 16位无符号
-    ValueTypeU32,               // 32位无符号
-    ValueTypeU64,               // 64位无符号
-    ValueTypeU128,              // 128位无符号
-    ValueTypeI8,			    // 1字节
-    ValueTypeI16,			    // 2字节
-    ValueTypeI32,			    // 32位整数
-    ValueTypeI64,			    // 64位整数
-    ValueTypeI128,			    // 128位整数
-    ValueTypeF32,			    // 单精度浮点数
-    ValueTypeF64,			    // 双精度浮点数
-    ValueTypeStr,			    // 字符串
-    ValueTypeObj,			    // 对象号
+pub enum ValueType {
+    ValueTypeUnKnow, // 未知
+    ValueTypeBool,   // 布尔
+    ValueTypeU8,     // 8位无符号
+    ValueTypeU16,    // 16位无符号
+    ValueTypeU32,    // 32位无符号
+    ValueTypeU64,    // 64位无符号
+    ValueTypeU128,   // 128位无符号
+    ValueTypeI8,     // 1字节
+    ValueTypeI16,    // 2字节
+    ValueTypeI32,    // 32位整数
+    ValueTypeI64,    // 64位整数
+    ValueTypeI128,   // 128位整数
+    ValueTypeF32,    // 单精度浮点数
+    ValueTypeF64,    // 双精度浮点数
+    ValueTypeStr,    // 字符串
+    ValueTypeObj,    // 对象号
     ValueTypeMax,
 }
 
@@ -155,7 +155,7 @@ pub struct ValueData {
 
 impl ValueData {
     pub(crate) fn new() -> Self {
-        ValueData{
+        ValueData {
             type_: ValueType::ValueTypeUnKnow,
             data_: AnyData::VUnknown,
         }
